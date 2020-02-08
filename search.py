@@ -164,6 +164,46 @@ def breadthFirstSearch(problem):
     Q1.2
     Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
+    """The code is same as Depth First search, but we use Queue instead of Stack """
+    if problem.isGoalState(problem.getStartState()):
+        return [] 
+
+    """As we need LIFO for DFS"""
+    from util import Queue
+    """"Now I have to initialize frontier with the initial state of the problem, according to fig 3.7"""
+    Frontier = Queue()
+    """Now I push the valid start state"""
+    Frontier.push((problem.getStartState(),[]))
+    """initializing empty explored set"""
+    statePath=[]
+    stateVisited=[]
+    while(True):
+        """return failure if Frontier is empty """
+        if Frontier.isEmpty():
+            return []
+        """choose a leaf node and remove it from Frontier"""    
+        xy,statePath = Frontier.pop() 
+        """ if it is the goal state, return it"""
+        if problem.isGoalState(xy):
+            return statePath
+        """Add the node to the explored set"""    
+        stateVisited.append(xy)
+        """expand the chosen node """
+        succecorPath = problem.getSuccessors(xy) 
+        """print ( problem.getSuccessors(xy)), test for successor """
+        if succecorPath:
+            for paths in succecorPath:
+                """Adding resulting nodes in Frontier only if not in frontier or explored set """
+                if paths[0] not in stateVisited and paths[0] not in (state[0] for state in Frontier.list): 
+                    """A condtion is added in the above if, we had to check all the nodes where we have been (states) """
+                    newPath = statePath + [paths[1]] 
+                    """
+                    print(paths[0])
+                    print(paths[1])
+                    print(newPath) """
+                    Frontier.push((paths[0],newPath))
+    
+
 
 
 def nullHeuristic(state, problem=None):
