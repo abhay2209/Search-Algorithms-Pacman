@@ -302,6 +302,7 @@ class CornersProblem(search.SearchProblem):
         space)
         """
         "*** YOUR CODE HERE ***"
+        return (self.startingPosition, [])
 
 
     def isGoalState(self, state):
@@ -309,6 +310,14 @@ class CornersProblem(search.SearchProblem):
         Returns whether this search state is a goal state of the problem.
         """
         "*** YOUR CODE HERE ***"
+        coordinate = state[0]
+        stateVisited = state[1]
+        if coordinate in self.corners:
+            if coordinate not in stateVisited:
+                stateVisited.append(coordinate)
+            return len(stateVisited)==4
+        else:
+            return False
 
 
     def getSuccessors(self, state):
@@ -321,15 +330,26 @@ class CornersProblem(search.SearchProblem):
             state, 'action' is the action required to get there, and 'stepCost'
             is the incremental cost of expanding to that successor
         """
+        x,y = state[0]
+        stateVisited = state[1]
 
         successors = []
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
             # Add a successor state to the successor list if the action is legal
             # Here's a code snippet for figuring out whether a new position hits a wall:
-            #   x,y = currentPosition
-            #   dx, dy = Actions.directionToVector(action)
-            #   nextx, nexty = int(x + dx), int(y + dy)
-            #   hitsWall = self.walls[nextx][nexty]
+        
+            dx, dy = Actions.directionToVector(action)
+            nextx, nexty = int(x + dx), int(y + dy)
+            next_node = (nextx, nexty)
+            hitsWall = self.walls[nextx][nexty]
+            """The above code was given and below is my addition """
+            if not hitsWall:
+                succesorPaths=list(stateVisited) 
+                if next_node in self.corners:
+                    if next_node not in succesorPaths:
+                        succesorPaths.append(next_node)
+                successor=((next_node, succesorPaths),action,1)
+                successors.append(successor)
 
             "*** YOUR CODE HERE ***"
 
