@@ -392,6 +392,26 @@ def cornersHeuristic(state, problem):
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
 
     "*** YOUR CODE HERE ***"
+    """Expands 901 Nodes, Autograder gives an issue"""
+    from util import manhattanDistance
+    stateNotVisited = []
+    statePath = state[0]
+    stateVisited = state[1]
+    """print(state[0])"""
+    """print(state[1])"""
+    for i in range(4):
+        if corners[i] not in stateVisited:
+            stateNotVisited.append(corners[i])
+            """print(corners[i])"""
+    totalDistance = 0
+    pathCurrent = statePath
+    while(len(stateNotVisited)!=0):
+        distance, corner = min( [(manhattanDistance(pathCurrent ,corner),corner) for corner in stateNotVisited] )
+        totalDistance = totalDistance + distance
+        pathCurrent = corner
+        stateNotVisited.remove(corner) 
+
+    return totalDistance
 
 
 def mazeDistance(point1, point2, gameState):
