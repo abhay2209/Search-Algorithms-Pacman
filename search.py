@@ -213,9 +213,6 @@ def nullHeuristic(state, problem=None):
     """
     return 0
 
-def f(problem,state,heuristic):
-
-    return problem.getCostOfActions(state[1]) + heuristic(state[0],problem)
 
 def aStarSearch(problem, heuristic=nullHeuristic):
     """
@@ -275,6 +272,7 @@ def priorityQueueDepthFirstSearch(problem):
     Reimplement DFS using a priority queue.
     """
     "*** YOUR CODE HERE ***"
+  
 
 
 def priorityQueueBreadthFirstSearch(problem):
