@@ -168,7 +168,7 @@ def breadthFirstSearch(problem):
     if problem.isGoalState(problem.getStartState()):
         return [] 
 
-    """As we need LIFO for DFS"""
+    """As we need FIFO for DFS"""
     from util import Queue
     """"Now I have to initialize frontier with the initial state of the problem, according to fig 3.7"""
     Frontier = Queue()
@@ -213,12 +213,61 @@ def nullHeuristic(state, problem=None):
     """
     return 0
 
+def f(problem,state,heuristic):
+
+    return problem.getCostOfActions(state[1]) + heuristic(state[0],problem)
+
 def aStarSearch(problem, heuristic=nullHeuristic):
     """
     Q1.3
     Search the node that has the lowest combined cost and heuristic first."""
     """Call heuristic(s,problem) to get h(s) value."""
     "*** YOUR CODE HERE ***"
+    if problem.isGoalState(problem.getStartState()):
+        return [] 
+
+    """As we need LIFO for DFS"""
+    from util import PriorityQueue
+    """ Initiliazing state of the problem"""
+    Frontier = PriorityQueue()        
+    """Pushing valid start state (this time we also have to consider priorities """            
+    Frontier.push(problem.getStartState(),0)
+    """Initializing empty explored set """
+    statePath=[]  
+    stateVisited = []                                
+    tempPath=[]     
+    """ Choosing a leaf node to remove it from Frontier"""                            
+    xy = Frontier.pop() 
+    """Initilaizing one more priority Queue for the path to our current """                                   
+    pathCurrent=PriorityQueue()  
+    """Running the loop until we are not in goal state """             
+    while not problem.isGoalState(xy):
+        """Not a  previosly visited node """
+        if xy not in stateVisited:
+            stateVisited.append(xy)
+            """Getting Successors """
+            successorPath = problem.getSuccessors(xy)
+            """This is where a major change occurs comapred to other two searches, so to clearly illustrate i used them individually instead of 'paths' """
+            for coordinate,direction,cost in successorPath:
+                newPath = statePath + [direction]
+                """ Getting cost of path with state in hand"""
+                costOfPath = problem.getCostOfActions(newPath) + heuristic(coordinate,problem)
+                """
+                print(costOfPath)"""
+                if coordinate not in stateVisited:
+                    """
+                    print(direction)
+                    print(coordinate)
+                    """
+                    Frontier.push(coordinate,costOfPath)
+                    pathCurrent.push(newPath,costOfPath)
+        xy = Frontier.pop()
+        statePath = pathCurrent.pop()    
+    return statePath
+    
+   
+
+    
 
 def priorityQueueDepthFirstSearch(problem):
     """
