@@ -16,7 +16,9 @@
 # Please enter the number of hours you spent on this
 # assignment here
 """
-num_hours_i_spent_on_this_assignment = 0
+num_hours_i_spent_on_this_assignment = 25-30
+It would have been less if I had more experience with Python, the challenge for me was to use Python in a complex manner.
+Though this won't be an issue for further assignments.
 """
 #
 #####################################################
@@ -29,7 +31,9 @@ num_hours_i_spent_on_this_assignment = 0
 # understanding? Are there any changes that could improve the value of the
 # course to you? (We will anonymize these before reading them.)
 """
-<Your feedback goes here>
+The course theory is way easier than the assignments. I understood well about the concepts, yet it was super had to implement it in the assignment
+It was fun though doing this assignment, took me about a 5 days of work (5 hours a day atleast). If more about the implementation is taught, 
+the class discusses only theory. I was blank while doing the assignment. I had to spend hours skimming through the book for helpful facts.
 
 """
 #####################################################
@@ -376,7 +380,13 @@ def priorityQueueBreadthFirstSearch(problem):
 # implementations.
 
 """
-<Your discussion goes here>
+for BFS 
+mediumMazeNode expanded are a little more with priority-queue
+bigMazeNode expanded are a little less
+
+for DFS it's same
+This concludes that nodes expanded are same for DFS, but when we do BFS nodes are expanded differently in both cases.
+Maybe this was the result was of the functioning.As queue works in FIFO and priority queue assign weight to nodes thus a different order for inseertion and extraction.
 """
 
 
